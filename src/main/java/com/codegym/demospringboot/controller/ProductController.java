@@ -1,12 +1,18 @@
 package com.codegym.demospringboot.controller;
 
 import com.codegym.demospringboot.model.Product;
+import com.codegym.demospringboot.model.ProductForm;
 import com.codegym.demospringboot.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -15,6 +21,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService productService;
+
+    @Value("${file-upload}")
+    private String uploadPath;
 
 
     @GetMapping
@@ -36,8 +45,19 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@ModelAttribute Product product) {
-        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> save(@ModelAttribute ProductForm productForm) {
+        MultipartFile image = productForm.getImage();
+        if (image.getSize() != 0) {
+            String fileName = productForm.getImage().getOriginalFilename();
+            try {
+                FileCopyUtils.copy(productForm.getImage().getBytes(), new File(uploadPath + fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Product product = new Product(productForm.getId(), productForm.getName(), productForm.getPrice(), productForm.getDescription(), fileName, productForm.getCategory());
+            return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
