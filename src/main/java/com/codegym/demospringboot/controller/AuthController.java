@@ -1,9 +1,8 @@
 package com.codegym.demospringboot.controller;
 
-import com.codegym.demospringboot.model.JwtResponse;
-import com.codegym.demospringboot.model.Role;
-import com.codegym.demospringboot.model.SignUpForm;
-import com.codegym.demospringboot.model.User;
+import com.codegym.demospringboot.model.dto.JwtResponse;
+import com.codegym.demospringboot.model.dto.SignUpForm;
+import com.codegym.demospringboot.model.entity.User;
 import com.codegym.demospringboot.service.JwtService;
 import com.codegym.demospringboot.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,37 +17,41 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin("*")
 public class AuthController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private IUserService userService;
+	@Autowired
+	private IUserService userService;
 
-    @Autowired
-    private JwtService jwtService;
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        //Kiểm tra username và pass có đúng hay không
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        //Lưu user đang đăng nhập vào trong context của security
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+	@Autowired
+	private JwtService jwtService;
 
-        String jwt = jwtService.generateTokenLogin(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByUsername(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
-    }
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User user) {
+		//Kiểm tra username và pass có đúng hay không
+		Authentication authentication = authenticationManager.authenticate(
+			new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		//Lưu user đang đăng nhập vào trong context của security
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody SignUpForm user) {
-        if (!user.getPassword().equals(user.getConfirmPassword())){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        User user1 = new User(user.getUsername(), user.getPassword());
-        return new ResponseEntity<>(userService.save(user1), HttpStatus.CREATED);
-    }
+		String jwt = jwtService.generateTokenLogin(authentication);
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		User currentUser = userService.findByUsername(user.getUsername());
+		return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+	}
+
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@Valid @RequestBody SignUpForm user) {
+		if (!user.getPasswordForm().getPassword().equals(user.getPasswordForm().getConfirmPassword())) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		User user1 = new User(user.getUsername(), user.getPasswordForm().getPassword());
+		return new ResponseEntity<>(userService.save(user1), HttpStatus.CREATED);
+	}
 }

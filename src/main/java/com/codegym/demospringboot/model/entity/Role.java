@@ -1,4 +1,4 @@
-package com.codegym.demospringboot.model;
+package com.codegym.demospringboot.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,23 +7,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "roles")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@NoArgsConstructor
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    private double price;
-
-    private String description;
-
-    private String image;
-
-    @ManyToOne
-    private Category category;
 }

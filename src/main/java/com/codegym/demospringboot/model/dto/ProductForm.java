@@ -1,5 +1,6 @@
-package com.codegym.demospringboot.model;
+package com.codegym.demospringboot.model.dto;
 
+import com.codegym.demospringboot.model.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

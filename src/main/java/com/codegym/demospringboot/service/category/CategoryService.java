@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.service.category;
 
-import com.codegym.demospringboot.model.Category;
+import com.codegym.demospringboot.model.entity.Category;
 import com.codegym.demospringboot.repository.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

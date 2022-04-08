@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.controller;
 
-import com.codegym.demospringboot.model.Category;
+import com.codegym.demospringboot.model.entity.Category;
 import com.codegym.demospringboot.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

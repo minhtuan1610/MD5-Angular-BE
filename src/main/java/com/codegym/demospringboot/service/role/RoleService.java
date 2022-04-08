@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.service.role;
 
-import com.codegym.demospringboot.model.Role;
+import com.codegym.demospringboot.model.entity.Role;
 import com.codegym.demospringboot.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

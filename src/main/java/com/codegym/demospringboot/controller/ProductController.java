@@ -1,7 +1,7 @@
 package com.codegym.demospringboot.controller;
 
-import com.codegym.demospringboot.model.Product;
-import com.codegym.demospringboot.model.ProductForm;
+import com.codegym.demospringboot.model.entity.Product;
+import com.codegym.demospringboot.model.dto.ProductForm;
 import com.codegym.demospringboot.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

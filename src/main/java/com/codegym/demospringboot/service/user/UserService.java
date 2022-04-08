@@ -1,8 +1,8 @@
 package com.codegym.demospringboot.service.user;
 
-import com.codegym.demospringboot.model.Role;
-import com.codegym.demospringboot.model.User;
-import com.codegym.demospringboot.model.UserPrincipal;
+import com.codegym.demospringboot.model.entity.Role;
+import com.codegym.demospringboot.model.entity.User;
+import com.codegym.demospringboot.model.dto.UserPrincipal;
 import com.codegym.demospringboot.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.codegym.demospringboot.model;
+package com.codegym.demospringboot.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

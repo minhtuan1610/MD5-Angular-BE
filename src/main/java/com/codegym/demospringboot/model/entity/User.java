@@ -1,4 +1,4 @@
-package com.codegym.demospringboot.model;
+package com.codegym.demospringboot.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(12)", nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

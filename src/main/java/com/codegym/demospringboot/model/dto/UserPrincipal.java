@@ -1,5 +1,7 @@
-package com.codegym.demospringboot.model;
+package com.codegym.demospringboot.model.dto;
 
+import com.codegym.demospringboot.model.entity.Role;
+import com.codegym.demospringboot.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

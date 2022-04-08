@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.repository;
 
-import com.codegym.demospringboot.model.User;
+import com.codegym.demospringboot.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

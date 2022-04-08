@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.repository;
 
-import com.codegym.demospringboot.model.Product;
+import com.codegym.demospringboot.model.entity.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

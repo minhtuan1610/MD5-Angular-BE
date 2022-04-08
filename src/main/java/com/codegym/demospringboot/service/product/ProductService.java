@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.service.product;
 
-import com.codegym.demospringboot.model.Product;
+import com.codegym.demospringboot.model.entity.Product;
 import com.codegym.demospringboot.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.codegym.demospringboot.service;
 
-import com.codegym.demospringboot.model.UserPrincipal;
+import com.codegym.demospringboot.model.dto.UserPrincipal;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
