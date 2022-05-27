@@ -45,19 +45,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@ModelAttribute ProductForm productForm) {
-        MultipartFile image = productForm.getImage();
-        if (image.getSize() != 0) {
-            String fileName = productForm.getImage().getOriginalFilename();
-            try {
-                FileCopyUtils.copy(productForm.getImage().getBytes(), new File(uploadPath + fileName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Product product = new Product(productForm.getId(), productForm.getName(), productForm.getPrice(), productForm.getDescription(), fileName, productForm.getCategory());
-            return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Product> save(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
